@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freitas BarberShop | Barbearia Premium em Sete Lagoas</title>
+    <meta name="description" content="Cortes, barbas e tratamentos capilares premium em Sete Lagoas. Conheça nossos planos de assinatura e agende seu horário.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cor-primaria: #d4af37;
+            --cor-primaria-escura: #b8941f;
+            --cor-fundo: #0a0a0a;
+            --cor-fundo-secundaria: #111111;
+            --cor-fundo-terciaria: #1a1a1a;
+            --cor-cinza: #2a2a2a;
+            --texto-claro: #ffffff;
+            --texto-cinza: #b0b0b0;
+            --sombra: 0 10px 40px rgba(0,0,0,0.8);
+            --sombra-dourada: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--cor-fundo); color: var(--texto-claro); line-height: 1.6; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        ul { list-style: none; }
+
+        /* HEADER */
+        header {
+            background: rgba(10, 10, 10, 0.98);
+            padding: 15px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--cor-primaria);
+            backdrop-filter: blur(10px);
+        }
+        .logo-img { height: 55px; width: auto; }
+        
+        /* MENU SANDUÍCHE */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--cor-primaria);
+            margin: 4px 0;
+            transition: 0.3s;
+            border-radius: 3px;
+        }
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        nav ul { display: flex; gap: 30px; }
+        nav a { font-weight: 500; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; position: relative; }
+        nav a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--cor-primaria); transition: width 0.3s; }
+        nav a:hover { color: var(--cor-primaria); }
+        nav a:hover::after { width: 100%; }
+        .btn-agendar-header {
+            background: var(--cor-primaria); color: #000; padding: 10px 25px; border-radius: 5px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border: 2px solid var(--cor-primaria);
+        }
+        .btn-agendar-header:hover { background: transparent; color: var(--cor-primaria); }
+
+        /* HERO */
+        .hero {
+            margin-top: 85px; min-height: 90vh;
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%), url('unnamed (18).jpg') no-repeat center center/cover;
+            background-attachment: fixed; display: flex; align-items: center; padding: 80px 10%;
+        }
+        .hero-content { max-width: 700px; }
+        .hero-subtitle { color: var(--cor-primaria); font-size: 1rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; font-weight: 500; }
+        .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 25px; }
+        .hero h1 span { color: var(--cor-primaria); }
+        .hero p { font-size: 1.15rem; color: var(--texto-cinza); margin-bottom: 40px; max-width: 600px; }
+        .btn-hero {
+            display: inline-flex; align-items: center; gap: 10px; background: var(--cor-primaria); color: #000;
+            padding: 16px 35px; border-radius: 5px; font-weight: 600; text-transform: uppercase; border: 2px solid var(--cor-primaria);
+        }
+        .btn-hero:hover { background: transparent; color: var(--cor-primaria); transform: translateY(-3px); box-shadow: var(--sombra-dourada); }
+
+        /* SEÇÕES GERAIS */
+        section { padding: 100px 10%; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-subtitle { color: var(--cor-primaria); text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; margin-bottom: 15px; display: block; }
+        .section-title { font-size: 2.8rem; margin-bottom: 20px; position: relative; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--cor-primaria); }
+        .section-description { color: var(--texto-cinza); max-width: 700px; margin: 30px auto 0; }
+
+        /* ASSINATURAS */
+        .assinaturas { background: var(--cor-fundo-secundaria); }
+        .planos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .plano-card {
+            background: var(--cor-fundo-terciaria); border: 1px solid var(--cor-cinza); border-radius: 15px;
+            padding: 35px 25px; text-align: center; transition: all 0.3s ease; position: relative;
+        }
+        .plano-card.destaque { border: 2px solid var(--cor-primaria); transform: scale(1.05); box-shadow: var(--sombra-dourada); }
+        .plano-card.destaque::before {
+            content: 'MAIS POPULAR'; position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            background: var(--cor-primaria); color: #000; padding: 5px 15px; font-size: 0.75rem; font-weight: 700; border-radius: 20px;
+        }
+        .plano-card:hover { transform: translateY(-10px); border-color: var(--cor-primaria); }
+        .plano-card.destaque:hover { transform: scale(1.05) translateY(-10px); }
+        .plano-nome { font-size: 1.3rem; margin-bottom: 15px; color: var(--texto-claro); }
+        .plano-preco { font-size: 2.5rem; font-weight: 700; color: var(--cor-primaria); margin-bottom: 5px; }
+        .plano-preco span { font-size: 1rem; color: var(--texto-cinza); font-weight: 400; }
+        .plano-desc { color: var(--texto-cinza); font-size: 0.9rem; margin-bottom: 25px; }
+        .btn-plano {
+            display: block; width: 100%; padding: 12px; background: transparent; border: 2px solid var(--cor-primaria);
+            color: var(--cor-primaria); font-weight: 600; border-radius: 5px; cursor: pointer; transition: 0.3s;
+        }
+        .btn-plano:hover, .plano-card.destaque .btn-plano { background: var(--cor-primaria); color: #000; }
+
+        /* SERVIÇOS */
+        .servicos { background: var(--cor-fundo); }
+        .servicos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .servico-card {
+            background: var(--cor-fundo-terciaria); border: 1px solid var(--cor-cinza); border-radius: 10px;
+            padding: 30px; transition: all 0.3s ease; display: flex; flex-direction: column;
+        }
+        .servico-card:hover { border-color: var(--cor-primaria); transform: translateY(-5px); }
+        .servico-topo { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .servico-card h3 { font-size: 1.2rem; color: var(--texto-claro); }
+        .servico-preco { color: var(--cor-primaria); font-size: 1.4rem; font-weight: 700; white-space: nowrap; }
+        .servico-tempo { color: var(--texto-cinza); font-size: 0.85rem; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
+        .servico-desc { color: var(--texto-cinza); font-size: 0.9rem; line-height: 1.5; flex-grow: 1; }
+
+        /* DEPOIMENTOS (NOVO) */
+        .depoimentos { background: var(--cor-fundo-secundaria); }
+        .depoimentos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .depoimento-card {
+            background: var(--cor-fundo-terciaria);
+            padding: 35px;
+            border-radius: 15px;
+            border: 1px solid var(--cor-cinza);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .depoimento-card:hover {
+            border-color: var(--cor-primaria);
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-dourada);
+        }
+        .depoimento-card::before {
+            content: '"';
+            font-size: 6rem;
+            color: var(--cor-primaria);
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+        .depoimento-estrelas {
+            color: var(--cor-primaria);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .depoimento-texto {
+            color: var(--texto-cinza);
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+        .depoimento-autor {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .depoimento-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--cor-primaria);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #000;
+            font-size: 1.2rem;
+        }
+        .depoimento-nome h4 {
+            color: var(--texto-claro);
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+        .depoimento-nome span {
+            color: var(--texto-cinza-escuro);
+            font-size: 0.85rem;
+        }
+
+        /* GALERIA EXPANDIDA */
+        .galeria { background: var(--cor-fundo); padding: 100px 5%; }
+        .filtro-galeria {
+            display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; flex-wrap: wrap;
+        }
+        .filtro-btn {
+            background: transparent; border: 2px solid var(--cor-cinza); color: var(--texto-cinza);
+            padding: 12px 30px; border-radius: 30px; cursor: pointer; font-weight: 500;
+            transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;
+        }
+        .filtro-btn:hover, .filtro-btn.ativo {
+            background: var(--cor-primaria); border-color: var(--cor-primaria); color: #000;
+        }
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .galeria-item {
+            position: relative; overflow: hidden; border-radius: 10px; cursor: pointer; aspect-ratio: 1;
+        }
+        .galeria-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
+        }
+        .galeria-item:hover img { transform: scale(1.15); }
+        .galeria-overlay {
+            position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+            opacity: 0; transition: opacity 0.3s ease; display: flex; align-items: flex-end; padding: 20px;
+        }
+        .galeria-item:hover .galeria-overlay { opacity: 1; }
+        .galeria-overlay h4 { color: var(--cor-primaria); font-size: 1.1rem; }
+
+        /* CONTATO */
+        .contato { background: var(--cor-fundo-secundaria); }
+        .contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .contato-item {
+            display: flex; align-items: flex-start; gap: 20px; margin-bottom: 30px; padding: 25px;
+            background: var(--cor-fundo-terciaria); border-radius: 10px; border-left: 4px solid var(--cor-primaria);
+        }
+        .contato-icon { font-size: 1.5rem; color: var(--cor-primaria); }
+        .contato-text h4 { margin-bottom: 8px; font-size: 1.1rem; }
+        .contato-text p, .contato-text a { color: var(--texto-cinza); }
+        .contato-text a:hover { color: var(--cor-primaria); }
+        .mapa-container { border-radius: 10px; overflow: hidden; box-shadow: var(--sombra); min-height: 400px; }
+        .mapa-container iframe { width: 100%; height: 100%; border: none; }
+
+        /* FOOTER */
+        footer { background: #050505; padding: 60px 10% 30px; border-top: 3px solid var(--cor-primaria); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 50px; }
+        .footer-col h3 { color: var(--cor-primaria); margin-bottom: 20px; font-size: 1.2rem; }
+        .footer-col .logo-img { height: 60px; margin-bottom: 15px; }
+        .footer-col p { color: var(--texto-cinza); font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px; }
+        .social-links { display: flex; gap: 15px; }
+        .social-links a {
+            width: 40px; height: 40px; background: var(--cor-fundo-terciaria); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; border: 1px solid var(--cor-cinza);
+        }
+        .social-links a:hover { background: var(--cor-primaria); border-color: var(--cor-primaria); color: #000; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { color: var(--texto-cinza); font-size: 0.9rem; }
+        .footer-col ul li a:hover { color: var(--cor-primaria); padding-left: 5px; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid var(--cor-cinza); color: var(--texto-cinza); font-size: 0.85rem; }
+
+        /* RESPONSIVO COM MENU SANDUÍCHE */
+        @media (max-width: 900px) {
+            .menu-toggle { display: flex; }
+            nav {
+                position: fixed;
+                top: 85px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                padding: 30px;
+                border-bottom: 2px solid var(--cor-primaria);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 999;
+            }
+            nav.active { transform: translateY(0); }
+            nav ul { flex-direction: column; gap: 20px; text-align: center; }
+            .hero h1 { font-size: 3rem; }
+            .contato-grid, .footer-grid { grid-template-columns: 1fr; }
+            section { padding: 70px 5%; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.2rem; }
+            .plano-card.destaque { transform: scale(1); }
+            .plano-card.destaque:hover { transform: translateY(-10px); }
+            .galeria-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="freitasbarbershop_68ba4f5171868.png" alt="Freitas BarberShop" class="logo-img">
+        </div>
+        
+        <!-- MENU SANDUÍCHE -->
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="#inicio" onclick="toggleMenu()">Início</a></li>
+                <li><a href="#assinaturas" onclick="toggleMenu()">Assinaturas</a></li>
+                <li><a href="#servicos" onclick="toggleMenu()">Serviços</a></li>
+                <li><a href="#depoimentos" onclick="toggleMenu()">Depoimentos</a></li>
+                <li><a href="#galeria" onclick="toggleMenu()">Galeria</a></li>
+                <li><a href="#contato" onclick="toggleMenu()">Contato</a></li>
+            </ul>
+        </nav>
+        
+        <a href="https://wa.me/5531993921835" class="btn-agendar-header" style="margin-left: 15px;">Agendar</a>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <p class="hero-subtitle">Estilo • Confiança • Atitude</p>
+            <h1>Seu estilo, <span>nossa paixão.</span></h1>
+            <p>Não é apenas sobre cortar cabelo. É sobre elevar sua autoestima e proporcionar uma experiência única de cuidado pessoal que vai além das expectativas.</p>
+            <a href="https://wa.me/5531993921835" class="btn-hero">Agendar Horário Agora</a>
+        </div>
+    </section>
+
+    <!-- ASSINATURAS -->
+    <section id="assinaturas" class="assinaturas">
+        <div class="section-header">
+            <span class="section-subtitle">Economia e Praticidade</span>
+            <h2 class="section-title">Clube de Assinatura</h2>
+            <p class="section-description">Mantenha seu visual sempre em dia com nossos planos mensais exclusivos.</p>
+        </div>
+        <div class="planos-grid">
+            <div class="plano-card">
+                <h3 class="plano-nome">Corte One</h3>
+                <div class="plano-preco">R$ 39,90<span>/mês</span></div>
+                <p class="plano-desc">Ideal para quem precisa de um ajuste rápido no mês.</p>
+                <a href="https://wa.me/5531993921835" class="btn-plano">Assinar</a>
+            </div>
+            <div class="plano-card destaque">
+                <h3 class="plano-nome">Corte & Barba</h3>
+                <div class="plano-preco">R$ 239,90<span>/mês</span></div>
+                <p class="plano-desc">O pacote completo ilimitado para quem não abre mão do visual impecável.</p>
+                <a href="https://wa.me/5531993921835" class="btn-plano">Assinar</a>
+            </div>
+            <div class="plano-card">
+                <h3 class="plano-nome">Pais & Filhos</h3>
+                <div class="plano-preco">R$ 99,90<span>/mês</span></div>
+                <p class="plano-desc">Momento especial de cuidado e estilo para você e seu filho.</p>
+                <a href="https://wa.me/5531993921835" class="btn-plano">Assinar</a>
+            </div>
+            <div class="plano-card">
+                <h3 class="plano-nome">Barba Limitada</h3>
+                <div class="plano-preco">R$ 119,90<span>/mês</span></div>
+                <p class="plano-desc">Manutenção perfeita da sua barba com toalha quente.</p>
+                <a href="https://wa.me/5531993921835" class="btn-plano">Assinar</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="servicos" class="servicos">
+        <div class="section-header">
+            <span class="section-subtitle">Nossa Tabela</span>
+            <h2 class="section-title">Serviços Principais</h2>
+        </div>
+        <div class="servicos-grid">
+            <div class="servico-card">
+                <div class="servico-topo">
+                    <h3>Corte de Cabelo</h3>
+                    <div class="servico-preco">R$ 45</div>
+                </div>
+                <div class="servico-tempo">⏱ 45 minutos</div>
+                <p class="servico-desc">Inclui lavagem e penteado!</p>
+            </div>
+            <div class="servico-card">
+                <div class="servico-topo">
+                    <h3>Barba Tradicional</h3>
+                    <div class="servico-preco">R$ 35</div>
+                </div>
+                <div class="servico-tempo">⏱ 30 minutos</div>
+                <p class="servico-desc">Feita com toalha quente e maior conforto.</p>
+            </div>
+            <div class="servico-card">
+                <div class="servico-topo">
+                    <h3>Corte + Barba</h3>
+                    <div class="servico-preco">R$ 80</div>
+                </div>
+                <div class="servico-tempo">⏱ 60 minutos</div>
+                <p class="servico-desc">O combo clássico completo.</p>
+            </div>
+            <div class="servico-card">
+                <div class="servico-topo">
+                    <h3>Barboterapia com Ozônio</h3>
+                    <div class="servico-preco">R$ 50</div>
+                </div>
+                <div class="servico-tempo">⏱ 45 minutos</div>
+                <p class="servico-desc">Higienização, esfoliação e massagem facial.</p>
+            </div>
+            <div class="servico-card">
+                <div class="servico-topo">
+                    <h3>Corte + Pigmentação</h3>
+                    <div class="servico-preco">R$ 80</div>
+                </div>
+                <div class="servico-tempo">⏱ 60 minutos</div>
+                <p class="servico-desc">Visual mais denso e definido.</p>
+            </div>
+            <div class="servico-card">
+                <div class="servico-topo">
+                    <h3>Combo Premium</h3>
+                    <div class="servico-preco">R$ 155</div>
+                </div>
+                <div class="servico-tempo"> 75 minutos</div>
+                <p class="servico-desc">Corte + Barboterapia + Limpeza Facial + Sobrancelha.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEPOIMENTOS (NOVA SEÇÃO) -->
+    <section id="depoimentos" class="depoimentos">
+        <div class="section-header">
+            <span class="section-subtitle">Avaliações</span>
+            <h2 class="section-title">O que dizem nossos clientes</h2>
+            <p class="section-description">Confira a experiência de quem já passou pela Freitas BarberShop</p>
+        </div>
+        <div class="depoimentos-grid">
+            <div class="depoimento-card">
+                <div class="depoimento-estrelas">★★★★★</div>
+                <p class="depoimento-texto">"Melhor barbearia de Sete Lagoas! Ambiente incrível, profissionais capacitados e a cerveja gelada é um diferencial. Saio sempre renovado!"</p>
+                <div class="depoimento-autor">
+                    <div class="depoimento-avatar">MS</div>
+                    <div class="depoimento-nome">
+                        <h4>Marcos Silva</h4>
+                        <span>Cliente desde 2019</span>
+                    </div>
+                </div>
+            </div>
+            <div class="depoimento-card">
+                <div class="depoimento-estrelas">★★★★★</div>
+                <p class="depoimento-texto">"A barboterapia com ozônio é sensacional! Minha barba nunca ficou tão macia e bem cuidada. Recomendo demais!"</p>
+                <div class="depoimento-autor">
+                    <div class="depoimento-avatar">RO</div>
+                    <div class="depoimento-nome">
+                        <h4>Ricardo Oliveira</h4>
+                        <span>Cliente fiel</span>
+                    </div>
+                </div>
+            </div>
+            <div class="depoimento-card">
+                <div class="depoimento-estrelas">★★★★★</div>
+                <p class="depoimento-texto">"Assinei o plano Corte & Barba e vale muito a pena! Economia e praticidade. A equipe é nota 10!"</p>
+                <div class="depoimento-autor">
+                    <div class="depoimento-avatar">JP</div>
+                    <div class="depoimento-nome">
+                        <h4>João Pedro</h4>
+                        <span>Assinante</span>
+                    </div>
+                </div>
+            </div>
+            <div class="depoimento-card">
+                <div class="depoimento-estrelas">★★★★★</div>
+                <p class="depoimento-texto">"Atendimento impecável! Fiz o combo premium e saí de outro jeito. Limpeza facial fez toda diferença."</p>
+                <div class="depoimento-autor">
+                    <div class="depoimento-avatar">CS</div>
+                    <div class="depoimento-nome">
+                        <h4>Carlos Santos</h4>
+                        <span>Cliente satisfeito</span>
+                    </div>
+                </div>
+            </div>
+            <div class="depoimento-card">
+                <div class="depoimento-estrelas">★★★★★</div>
+                <p class="depoimento-texto">"Levo meu filho no plano Pais & Filhos. Ele adora e eu também! Ambiente familiar e profissionais pacientes."</p>
+                <div class="depoimento-autor">
+                    <div class="depoimento-avatar">AM</div>
+                    <div class="depoimento-nome">
+                        <h4>André Mendes</h4>
+                        <span>Pai e filho</span>
+                    </div>
+                </div>
+            </div>
+            <div class="depoimento-card">
+                <div class="depoimento-estrelas">★★★★★</div>
+                <p class="depoimento-texto">"Profissionais qualificados e ambiente premium. A pigmentação ficou perfeita! Super recomendo."</p>
+                <div class="depoimento-autor">
+                    <div class="depoimento-avatar">FL</div>
+                    <div class="depoimento-nome">
+                        <h4>Fernando Lima</h4>
+                        <span>Cliente novo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERIA COM MAIS FOTOS -->
+    <section id="galeria" class="galeria">
+        <div class="section-header">
+            <span class="section-subtitle">Portfólio</span>
+            <h2 class="section-title">Nossa Galeria</h2>
+            <p class="section-description">Confira alguns dos nossos trabalhos e nosso ambiente</p>
+        </div>
+        
+        <div class="filtro-galeria">
+            <button class="filtro-btn ativo" onclick="filtrar('todos', event)">Todos</button>
+            <button class="filtro-btn" onclick="filtrar('cortes', event)">Cortes</button>
+            <button class="filtro-btn" onclick="filtrar('barba', event)">Barba</button>
+            <button class="filtro-btn" onclick="filtrar('ambiente', event)">Ambiente</button>
+        </div>
+
+        <div class="galeria-grid">
+            <div class="galeria-item" data-categoria="cortes">
+                <img src="unnamed (79).jpg" alt="Corte degradê">
+                <div class="galeria-overlay"><h4>Corte Degradê</h4></div>
+            </div>
+            <div class="galeria-item" data-categoria="cortes">
+                <img src="unnamed (83).jpg" alt="Corte social">
+                <div class="galeria-overlay"><h4>Corte Social</h4></div>
+            </div>
+            <div class="galeria-item" data-categoria="barba">
+                <img src="unnamed (74).jpg" alt="Barboterapia">
+                <div class="galeria-overlay"><h4>Barboterapia</h4></div>
+            </div>
+            <div class="galeria-item" data-categoria="ambiente">
+                <img src="unnamed (78).jpg" alt="Ambiente">
+                <div class="galeria-overlay"><h4>Nosso Espaço</h4></div>
+            </div>
+            <div class="galeria-item" data-categoria="cortes">
+                <img src="unnamed (84).jpg" alt="Corte e barba">
+                <div class="galeria-overlay"><h4>Corte + Barba</h4></div>
+            </div>
+            <div class="galeria-item" data-categoria="cortes">
+                <img src="unnamed (94).jpg" alt="Corte moderno">
+                <div class="galeria-overlay"><h4>Corte Moderno</h4></div>
+            </div>
+            <div class="galeria-item" data-categoria="barba">
+                <img src="unnamed (8).png" alt="Tratamento barba">
+                <div class="galeria-overlay"><h4>Tratamento</h4></div>
+            </div>
+            <div class="galeria-item" data-categoria="ambiente">
+                <img src="unnamed333.jpg" alt="Decoração">
+                <div class="galeria-overlay"><h4>Decoração</h4></div>
+            </div>
+            <div class="galeria-item" data-categoria="cortes">
+                <img src="unnamed (17).jpg" alt="Corte infantil">
+                <div class="galeria-overlay"><h4>Corte Infantil</h4></div>
+            </div>
+            <div class="galeria-item" data-categoria="cortes">
+                <img src="unnamed (96).jpg" alt="Corte">
+                <div class="galeria-overlay"><h4>Acabamento</h4></div>
+            </div>
+            <div class="galeria-item" data-categoria="ambiente">
+                <img src="unnamed (27).jpg" alt="Interior">
+                <div class="galeria-overlay"><h4>Interior</h4></div>
+            </div>
+            <div class="galeria-item" data-categoria="cortes">
+                <img src="unnamed (10).jpg" alt="Corte">
+                <div class="galeria-overlay"><h4>Estilo</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="contato">
+        <div class="section-header">
+            <span class="section-subtitle">Visite-nos</span>
+            <h2 class="section-title">Entre em Contato</h2>
+        </div>
+        <div class="contato-grid">
+            <div class="contato-info">
+                <div class="contato-item">
+                    <div class="contato-icon">📍</div>
+                    <div class="contato-text">
+                        <h4>Endereço</h4>
+                        <p>Rua Santa Juliana, 2259 - Braz Filizola<br>Sete Lagoas - MG, 35701-004</p>
+                    </div>
+                </div>
+                <div class="contato-item">
+                    <div class="contato-icon">📱</div>
+                    <div class="contato-text">
+                        <h4>Telefone / WhatsApp</h4>
+                        <p><a href="https://wa.me/5531993921835">(31) 99392-1835</a></p>
+                    </div>
+                </div>
+                <div class="contato-item">
+                    <div class="contato-icon">⏰</div>
+                    <div class="contato-text">
+                        <h4>Horário</h4>
+                        <p><strong>Seg a Sex:</strong> 09:00 - 20:00<br><strong>Sáb:</strong> 08:00 - 18:00</p>
+                    </div>
+                </div>
+                <a href="https://wa.me/5531993921835" class="btn-hero" style="margin-top: 20px;">Agendar Agora</a>
+            </div>
+            <div class="mapa-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3750.123!2d-44.2268!3d-19.4468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa645253a396909%3A0xfb58eb19ec705b87!2sFreitas%20BarberShop!5e0!3m2!1spt-BR!2sbr!4v1690000000000" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="freitasbarbershop_68ba4f5171868.png" alt="Freitas BarberShop" class="logo-img">
+                <p>Comprometidos em ajudar nossos clientes a descobrir e expressar seu estilo autêntico.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/freitas.barbershop" target="_blank">📷</a>
+                    <a href="https://wa.me/5531993921835" target="_blank">💬</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Navegação</h3>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#assinaturas">Assinaturas</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#depoimentos">Depoimentos</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contato</h3>
+                <ul>
+                    <li>📍 R. Santa Juliana, 2259</li>
+                    <li>📱 (31) 99392-1835</li>
+                    <li> Seg-Sex: 09h às 20h</li>
+                    <li> Sáb: 08h às 18h</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Freitas BarberShop. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // MENU SANDUÍCHE
+        function toggleMenu() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('nav');
+            menuToggle.classList.toggle('active');
+            nav.classList.toggle('active');
+        }
+
+        // FILTRO GALERIA
+        function filtrar(categoria, event) {
+            const itens = document.querySelectorAll('.galeria-item');
+            const botoes = document.querySelectorAll('.filtro-btn');
+            
+            botoes.forEach(btn => btn.classList.remove('ativo'));
+            event.target.classList.add('ativo');
+            
+            itens.forEach(item => {
+                if (categoria === 'todos' || item.dataset.categoria === categoria) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // SCROLL HEADER
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '10px 5%';
+            } else {
+                header.style.padding = '15px 5%';
+            }
+        });
+
+        // SCROLL SUAVE
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
